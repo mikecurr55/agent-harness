@@ -1,0 +1,47 @@
+# Default policy set — deny-by-default with explicit allow rules.
+# Format compatible with Microsoft Agent Governance Toolkit.
+
+policies:
+  - id: allow-read-tools
+    description: "Allow agents to invoke read-only tools"
+    action: "tool:read:*"
+    resource: "*"
+    verdict: allow
+    priority: 10
+
+  - id: allow-llm-calls
+    description: "Allow agents to make LLM inference calls"
+    action: "llm:invoke"
+    resource: "*"
+    verdict: allow
+    priority: 10
+
+  - id: escalate-write-tools
+    description: "Write operations require human approval"
+    action: "tool:write:*"
+    resource: "*"
+    verdict: escalate
+    priority: 20
+
+  - id: deny-pii-access
+    description: "Deny direct access to PII data domains without explicit scope"
+    action: "*"
+    resource: "data:pii:*"
+    verdict: deny
+    priority: 100
+
+  - id: deny-financial-over-threshold
+    description: "Deny financial operations over threshold"
+    action: "tool:write:financial"
+    resource: "*"
+    conditions:
+      above_dollar_threshold: "true"
+    verdict: deny
+    priority: 100
+
+  - id: deny-deploy-production
+    description: "Never allow direct production deployments"
+    action: "tool:write:deploy"
+    resource: "env:production"
+    verdict: deny
+    priority: 200
