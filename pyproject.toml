@@ -39,6 +39,11 @@ dependencies = [
     # Policy engine
     "pyyaml>=6.0",
     "jsonschema>=4.23",
+
+    # API
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "sse-starlette>=2.0",
 ]
 
 [project.optional-dependencies]

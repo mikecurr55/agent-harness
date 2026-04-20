@@ -22,6 +22,11 @@ venv/
 .idea/
 *.swp
 
+# Node
+node_modules/
+ui/node_modules/
+ui/dist/
+
 # OS
 .DS_Store
 Thumbs.db
